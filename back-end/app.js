@@ -3,6 +3,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import logger from './utils/logger.js';
 import { MONGODB_URI } from './utils/config.js';
+import usersRouter from './controllers/usersRouter.js';
 
 logger.log('connecting to', MONGODB_URI);
 
@@ -26,5 +27,7 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send('<h1>Hello World</h1>');
 });
+
+app.use('/api/users', usersRouter);
 
 export default app;
