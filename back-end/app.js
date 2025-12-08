@@ -1,5 +1,21 @@
 import express from 'express';
 import cors from 'cors';
+import mongoose from 'mongoose';
+import logger from './utils/logger.js';
+import { MONGODB_URI } from './utils/config.js';
+
+logger.log('connecting to', MONGODB_URI);
+
+// mongoose.set('strictQuery', false);
+
+mongoose
+    .connect(MONGODB_URI, { family: 4 })
+    .then(() => {
+        logger.log('connected to mongoDb');
+    })
+    .catch((error) => {
+        logger.error('error connecting to mongoDb:', error.message);
+    });
 
 const app = express();
 
