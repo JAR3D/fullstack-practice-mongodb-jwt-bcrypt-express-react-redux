@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "checkJs": true,
+    "types": ["vitest/globals", "vite/client"]
+  },
+  "include": ["src", "testSetup.js"]
+}
