@@ -1,20 +1,56 @@
 import React from 'react';
-import { useState } from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import Home from './components/Home';
+import Notes from './components/Notes';
+import Users from './components/Users';
+import Login from './components/Login';
+import Register from './components/Register';
 
 const App = () => {
-    const [count, setCount] = useState(0);
+    const user = useSelector((state) => state.user);
 
     return (
-        <main style={{ fontFamily: 'sans-serif', padding: '2rem' }}>
-            <h1>Hello React + Vite</h1>
-            <p>
-                Starter template with ESLint, Prettier, Vitest, jsdom, and React
-                Hooks.
-            </p>
-            <button onClick={() => setCount((n) => n + 1)}>
-                Clicked {count} times
-            </button>
-        </main>
+        <BrowserRouter>
+            <main>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to="/">home</Link>
+                        </li>
+                        <li>
+                            <Link to="/notes">notes</Link>
+                        </li>
+                        <li>
+                            <Link to="/users">users</Link>
+                        </li>
+                        {user ? (
+                            <li>
+                                <em>{user.username} logged in</em>
+                                <input type="button" value="logout" />
+                            </li>
+                        ) : (
+                            <>
+                                <li>
+                                    <Link to="/login">login</Link>
+                                </li>
+                                <li>
+                                    <Link to="/register">register</Link>
+                                </li>
+                            </>
+                        )}
+                    </ul>
+                </nav>
+
+                <Routes>
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/users" element={<Users />} />
+                    <Route path="/notes" element={<Notes />} />
+                    <Route path="/" element={<Home />} />
+                </Routes>
+            </main>
+        </BrowserRouter>
     );
 };
 
