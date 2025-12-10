@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import logger from './utils/logger.js';
 import { MONGODB_URI } from './utils/config.js';
 import usersRouter from './controllers/usersRouter.js';
+import notesRouter from './controllers/notesRouter.js';
 import middlewares from './middlewares/middlewares.js';
 
 logger.log('connecting to', MONGODB_URI);
@@ -30,6 +31,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', usersRouter);
+app.use('/api/notes', notesRouter);
 
 app.use(middlewares.errorHandler);
 
